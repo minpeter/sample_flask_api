@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import ssl
+# import ssl
 
 app = Flask(__name__)
 CORS(app, resources=r'/*')
@@ -24,6 +24,6 @@ def sql():
         return jsonify({"msg": f"SQL query: {query} 🎈"})
 
 if __name__ == '__main__':
-    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
-    ssl_context.load_cert_chain(certfile='cert.pem', keyfile='key.pem', password='louie')
-    app.run( port="7737", ssl_context=ssl_context)
+    # ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    # ssl_context.load_cert_chain(certfile='cert.pem', keyfile='key.pem', password='louie')
+    app.run(host='0.0.0.0', port="5000") #, ssl_context=ssl_context
