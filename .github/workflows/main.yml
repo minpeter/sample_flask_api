@@ -30,7 +30,10 @@ jobs:
 
       #app dir 압축
       - name: zip deploy
-        run: zip -r ./deploy/build.zip ./app/* appspec.yml
+        run: zip -r ./deploy/build.zip ./app/*
+      
+      -name: Copy appspec.yml
+        run: cp appspec.yml ./deploy
 
       # AWS S3에 압축파일을 전달하는 설정 및 명령어
       - name: deploy to s3
@@ -44,3 +47,6 @@ jobs:
           AWS_REGION: ap-northeast-2
           SOURCE_DIR: "./deploy"
           DEST_DIR: "backend/"
+
+      - name: CodeDeploy
+            run: aws deploy create-deployment --application-name sample-flask-api --deployment-group-name minpeter-sample-flask-api --s3-location bucket=sample-flask-api/,key=backend/build.zip,bundleType=zip
