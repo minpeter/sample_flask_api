@@ -30,7 +30,7 @@ jobs:
 
       #app dir 압축
       - name: zip deploy
-        run: zip -r ./deploy/build.zip ./app/*
+        run: zip -r ./deploy/build.zip ./app/* appspec.yml
 
       # AWS S3에 압축파일을 전달하는 설정 및 명령어
       - name: deploy to s3
