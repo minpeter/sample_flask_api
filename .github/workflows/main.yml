@@ -31,7 +31,7 @@ jobs:
       #app dir 압축
       - name: zip deploy
         run: zip -r ./deploy/build.zip ./app/*
-      
+
       -name: Copy appspec.yml
         run: cp appspec.yml ./deploy
 
