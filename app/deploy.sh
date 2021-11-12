@@ -1,5 +1,3 @@
-pip install -r requirements.txt
-python3 app.py
 
 #!/usr/bin/env bash
 
@@ -18,6 +16,8 @@ else
   kill -15 $CURRENT_PID
   sleep 5
 fi
+
+pip install -r requirements.txt
 
 echo "> 새 애플리케이션 배포"
 

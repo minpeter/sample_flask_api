@@ -1,18 +1,20 @@
 version: 0.0
 os: linux
+
 files:
   - source: /
-  destination: /home/ubuntu/build/
-  overwrite: yes
+    destination: /home/ubuntu/build/
+    overwrite: yes
 
 permissions:
   - object: /
     pattern: "**"
     owner: ubuntu
     group: ubuntu
+    mode: 775
 
 hooks:
   ApplicationStart:
-    - location: start.sh
+    - location: deploy.sh
       timeout: 60
       runas: ubuntu
