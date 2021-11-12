@@ -28,7 +28,7 @@ jobs:
       - name: make deploy dir
         run: mkdir ./deploy
 
-      - naem: copy files
+      - name: copy files
         run: cp -r ./app/* ./deploy
 
       - name: Copy appspec.yml
