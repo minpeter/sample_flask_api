@@ -49,4 +49,4 @@ jobs:
           DEST_DIR: "backend/"
 
       - name: CodeDeploy
-            run: aws deploy create-deployment --application-name sample-flask-api --deployment-group-name minpeter-sample-flask-api --s3-location bucket=sample-flask-api/,key=backend/build.zip,bundleType=zip
+        run: aws deploy create-deployment --application-name sample-flask-api --deployment-group-name minpeter-sample-flask-api --s3-location bucket=sample-flask-api/,key=backend/build.zip,bundleType=zip
