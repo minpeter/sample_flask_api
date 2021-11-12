@@ -12,7 +12,7 @@ def root():
 @app.route("/helloworld", methods = ['GET'])
 def helloworld():
     name = request.args.get("name")
-    return jsonify({"msg": f"hello {name}!! 💎"})
+    return jsonify({"msg": f"hello {name}!! 🦕"})
 
 @app.route("/sql", methods = ['GET'])
 def sql():
