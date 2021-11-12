@@ -28,25 +28,26 @@ jobs:
       - name: make deploy dir
         run: mkdir ./deploy
 
-      #app dir 압축
-      - name: zip deploy
-        run: zip -r ./deploy/build.zip ./app/*
+      - naem: copy files
+        run: cp -r ./app/* ./deploy
 
       - name: Copy appspec.yml
         run: cp appspec.yml ./deploy
 
-      # AWS S3에 압축파일을 전달하는 설정 및 명령어
-      - name: deploy to s3
-        uses: jakejarvis/s3-sync-action@master
+      #app dir 압축
+      - name: zip deploy
+        run: zip -r ./sample_flask_api.zip ./deploy
+
+      # Deploy
+      - name: Deploy
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          args: --acl public-read --follow-symlinks --delete
-        env:
-          AWS_S3_BUCKET: ${{secrets.AWS_PRODUCTION_BUCKET_NAME}}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
-          AWS_REGION: ap-northeast-2
-          SOURCE_DIR: "./deploy"
-          DEST_DIR: "backend/"
+          aws-access-key-id: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Upload to S3
+        run: aws s3 cp --region ap-northeast-2 --acl private ./sample_flask_api.zip s3://sample-flask-api/
 
       - name: CodeDeploy
-        run: aws deploy create-deployment --application-name sample-flask-api --deployment-group-name minpeter-sample-flask-api --s3-location bucket=sample-flask-api/,key=backend/build.zip,bundleType=zip
+        run: aws deploy create-deployment --application-name sample-flask-api --deployment-group-name minpeter-sample-flask-api --s3-location bucket=sample-flask-api,key=sample_flask_api.zip,bundleType=zip
