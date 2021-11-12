@@ -32,7 +32,7 @@ jobs:
       - name: zip deploy
         run: zip -r ./deploy/build.zip ./app/*
 
-      -name: Copy appspec.yml
+      - name: Copy appspec.yml
         run: cp appspec.yml ./deploy
 
       # AWS S3에 압축파일을 전달하는 설정 및 명령어
