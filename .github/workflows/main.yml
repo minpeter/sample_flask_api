@@ -50,4 +50,4 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 --acl private ./sample_flask_api.zip s3://sample-flask-api/
 
       - name: CodeDeploy
-        run: aws deploy create-deployment --region ap-northeast-2c --application-name sample-flask-api --deployment-group-name minpeter-sample-flask-api --s3-location bucket=sample-flask-api,key=sample_flask_api.zip,bundleType=zip
+        run: aws deploy create-deployment --application-name sample-flask-api --deployment-group-name minpeter-sample-flask-api --s3-location bucket=sample-flask-api,key=sample_flask_api.zip,bundleType=zip
