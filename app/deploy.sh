@@ -1,7 +1,8 @@
 
 #!/usr/bin/env bash
 
-REPOSITORY=/home/ubuntu/build
+REPOSITORY=/home/ec2-user/build
+
 
 echo "> 현재 구동 중인 애플리케이션 pid 확인"
 
@@ -17,7 +18,7 @@ else
   sleep 5
 fi
 
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
 echo "> 새 애플리케이션 배포"
 
