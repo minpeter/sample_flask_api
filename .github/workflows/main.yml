@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches: [master]
+
   workflow_dispatch:
 
 jobs:
@@ -27,6 +28,6 @@ jobs:
 
       - name: CodeDeploy
         run: |
-          aws deploy create-deployment --region ap-northeast-2 
-          --application-name simple-api-deployment --deployment-group-name dev 
+          aws deploy create-deployment --region ap-northeast-2 \
+          --application-name simple-api-deployment --deployment-group-name dev \
           --s3-location bucket=simple-api-deployment,key=simple-api-deployment.zip,bundleType=zip
