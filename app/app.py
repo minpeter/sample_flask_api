@@ -1,5 +1,7 @@
+from crypt import methods
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app, resources=r'/*')
@@ -25,6 +27,10 @@ def sql():
 @app.route("/egg", methods = ['GET'])
 def egg():
     return jsonify({"msg": "🥚"})
+
+@app.route("/time", methods = ['GET'])
+def new():
+    return jsonify({"server time": datetime.now()})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
