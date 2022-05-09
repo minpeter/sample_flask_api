@@ -20,7 +20,7 @@ fi
 
 echo "> 새 애플리케이션 배포"
 
-PY_FILE=$(ls -tr $REPOSITORY/*.py | tail -n 1)
+PY_FILE=$(ls -tr $REPOSITORY/waitress_server.py | tail -n 1)
 
 echo "> PY NAME: $PY_FILE"
 
