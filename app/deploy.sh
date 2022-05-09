@@ -1,7 +1,8 @@
 
 #!/usr/bin/env bash
 
-REPOSITORY=/home/ubuntu/build
+REPOSITORY=/home/ec2-user/build
+
 
 echo "> 현재 구동 중인 애플리케이션 pid 확인"
 
@@ -17,8 +18,6 @@ else
   sleep 5
 fi
 
-pip install -r requirements.txt
-
 echo "> 새 애플리케이션 배포"
 
 PY_FILE=$(ls -tr $REPOSITORY/*.py | tail -n 1)
@@ -28,6 +27,10 @@ echo "> PY NAME: $PY_FILE"
 echo "> $PY_FILE 에 실행권한 추가"
 
 chmod +x $PY_FILE
+
+echo "> 실행에 필요한 패키지 다운로드"
+
+pip3 install -r $REPOSITORY/requirements.txt
 
 echo "> $PY_FILE 실행"
 

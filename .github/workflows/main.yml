@@ -1,44 +1,21 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [master]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "deploy"
   deploy:
-    name: DEPLOY
-    # The type of runner that the job will run on
+    name: DEPLOY on AWS
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      #압축 파일 저장할 디렉토리 생성
-      - name: make deploy dir
-        run: mkdir ./deploy
+      - name: zip app folder
+        run: zip -r ./simple-api-deployment.zip ./app
 
-      - name: copy files
-        run: cp -r ./app/* ./deploy
-
-      - name: Copy appspec.yml
-        run: cp appspec.yml ./deploy
-
-      #app dir 압축
-      - name: zip deploy
-        run: zip -r ./sample_flask_api.zip ./deploy
-
-      # Deploy
       - name: Deploy
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -47,7 +24,10 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload to S3
-        run: aws s3 cp --region ap-northeast-2 --acl private ./sample_flask_api.zip s3://sample-flask-api/
+        run: aws s3 cp --region ap-northeast-2 --acl private ./simple-api-deployment.zip s3://simple-api-deployment/
 
       - name: CodeDeploy
-        run: aws deploy create-deployment --application-name sample-flask-api --deployment-group-name minpeter-sample-flask-api --s3-location bucket=sample-flask-api,key=sample_flask_api.zip,bundleType=zip
+        run: |
+          aws deploy create-deployment --region ap-northeast-2 \
+          --application-name simple-api-deployment --deployment-group-name dev \
+          --s3-location bucket=simple-api-deployment,key=simple-api-deployment.zip,bundleType=zip
