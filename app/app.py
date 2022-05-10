@@ -32,5 +32,9 @@ def egg():
 def new():
     return jsonify({"server time": datetime.now()})
 
+@app.route("/new", methods = ['GET'])
+def new():
+    return jsonify({"msg": "new api"})
+
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port='5000')
