@@ -29,7 +29,7 @@ def egg():
     return jsonify({"msg": "🥚"})
 
 @app.route("/time", methods = ['GET'])
-def new():
+def time():
     return jsonify({"server time": datetime.now()})
 
 @app.route("/new", methods = ['GET'])
